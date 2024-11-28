@@ -16,45 +16,13 @@ public static class DependencesInjections
     {
         //configura DbContext-----------------------------------------------------------
 
-        //services.AddScoped<AppDbContext>(provider =>
-        //{
-        //    var httpContext = provider.GetRequiredService<IHttpContextAccessor>().HttpContext;
-        //    var tenantId = (Guid?)httpContext?.Items["TenantId"] ?? throw new Exception("Tenant not found!");
-
-        //    var options = provider.GetRequiredService<DbContextOptions<AppDbContext>>();
-        //    return new AppDbContext(options, tenantId);
-        //});
-
 
         services.AddDbContext<AppDbContext>(options =>
          options.UseSqlServer(connection, b =>
                b.MigrationsAssembly("QuadrosNBR.Infraestrutura")));
 
-        //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
         //configura IdentityDbContext----------------------------------------------------
-
-        //services.AddDbContext<AppDbContextIdentity>(options =>
-        // options.UseSqlServer(connectionIdentity, b =>
-        //       b.MigrationsAssembly("QuadrosNBR.Infraestrutura")));
-        //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
-
-
-
-
-        //services.AddDbContext<AppDbContext>((provider, options) =>
-        //{
-        //    var httpContext = provider.GetRequiredService<IHttpContextAccessor>().HttpContext;
-        //    var tenantId = (Guid?)httpContext?.Items["TenantId"] ?? throw new Exception("Tenant not found!");
-
-        //    options.UseSqlServer(connection, b =>
-        //       b.MigrationsAssembly("QuadrosNBR.Infraestrutura"));
-
-        //    return new AppDbContext(options, tenantId);
-        //});
-
-
-
 
         services.AddIdentityCore<ApplicationUser>(options =>
         options.SignIn.RequireConfirmedAccount = true)
@@ -80,7 +48,7 @@ public static class DependencesInjections
         //--------------------------------------------------------------------------------
 
 
-        //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
