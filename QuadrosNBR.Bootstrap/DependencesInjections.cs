@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuadrosNBR.Aplicacao.IUnitOfWork;
+using QuadrosNBR.Aplicacao.Mappings;
 using QuadrosNBR.Infraestrutura.DataBase.Contextos;
 using QuadrosNBR.Infraestrutura.DataBase.Identities;
 using QuadrosNBR.Infraestrutura.UnitOfWork;
@@ -46,6 +48,20 @@ public static class DependencesInjections
             option.IterationCount = 12000;
         });
         //--------------------------------------------------------------------------------
+
+
+
+        //configura Automapper-------------------------------------------------------------
+
+        var mappingConfig = new MapperConfiguration(mc =>
+        {
+            mc.AddProfile(new MappingProfile());
+        });
+        IMapper mapper = mappingConfig.CreateMapper();
+        services.AddSingleton(mapper);
+        //--------------------------------------------------------------------------------
+
+
 
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

@@ -10,4 +10,15 @@
     <ProjectReference Include="..\Dominio\QuadrosNBR.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.11" />
+  </ItemGroup>
+
 </Project>
