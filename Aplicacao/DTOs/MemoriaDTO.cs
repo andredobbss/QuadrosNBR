@@ -4,7 +4,7 @@ namespace QuadrosNBR.Aplicacao.DTOs;
 
 public class MemoriaDTO : BaseDTO
 {
-    public string? NomeDaLayer { get; private set; }
+    public string NomeDaLayer { get; private set; } = null!;
     public decimal Area { get; private set; }
     public string? Descricao { get; private set; }
     public int Repeticao { get; private set; }

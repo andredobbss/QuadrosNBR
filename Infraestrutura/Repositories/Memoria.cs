@@ -1,4 +1,6 @@
-﻿using QuadrosNBR.Aplicacao.Repositories;
+﻿using Autodesk.AutoCAD.Interop.Common;
+using Autodesk.AutoCAD.Interop;
+using QuadrosNBR.Aplicacao.Repositories;
 using QuadrosNBR.Dominio.Entities;
 using QuadrosNBR.Infraestrutura.DataBase.Context;
 using QuadrosNBR.Infraestrutura.Repositories.Base;
@@ -7,5 +9,87 @@ namespace QuadrosNBR.Infraestrutura.Repositories;
 
 public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_appDbContext), IMemoria
 {
-   
+    public void AreaAutocad(MemoriaDominio memoriaDominio, string dwgFilePath)
+    {
+        var areas = GetArea(memoriaDominio, dwgFilePath);
+
+        if (areas is not null)
+        {
+            _appDbContext.Memorias.BulkSynchronize(areas);
+        }
+    }
+
+    private static IEnumerable<MemoriaDominio> GetArea(MemoriaDominio memoria, string dwgFilePath)
+    {
+        if (Path.Exists(dwgFilePath) is true)
+        {
+            List<MemoriaDominio> memoriaDominio = new();
+
+            AcadApplication acadApp = null;
+
+            try
+            {
+                acadApp = new AcadApplication();
+
+                acadApp.Visible = false;
+
+
+                AcadDocument acadDoc = acadApp.Documents.Open(dwgFilePath, ReadOnly: true);
+
+                Thread.Sleep(3000);
+
+
+                foreach (AcadEntity entity in acadDoc.ModelSpace)
+                {
+                    if (entity is AcadLWPolyline polyline)
+                    {
+
+                        string layerName = polyline.Layer;
+                        AcadLayer layer = acadDoc.Layers.Item(layerName);
+
+
+                        if (!layer.Lock)
+                        {
+                            MemoriaDominio memoriaDominios = new(polyline.Layer,
+                                (decimal)polyline.Area,
+                                null,
+                                0,
+                                null,
+                                null,
+                                null,
+                                0,
+                                false,
+                                false,
+                                false,
+                                null,
+                                false,
+                                memoria.ProjetoId,
+                                memoria.TenantId);
+
+                            memoriaDominio.Add(memoriaDominios);
+
+                        }
+                    }
+                }
+
+                acadDoc.Close();
+                return memoriaDominio;
+            }
+            catch
+            {
+                return null;
+            }
+            finally
+            {
+                if (acadApp != null)
+                {
+                    acadApp.Quit();
+                }
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

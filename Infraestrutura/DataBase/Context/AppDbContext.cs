@@ -20,6 +20,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Tenant>? Tenants { get; set; }
     public DbSet<Project>? Projects { get; set; }
     public DbSet<InformacoesPreliminaresDominio>? InformacoesPreliminares { get; set; }
+    public DbSet<MemoriaDominio>  Memorias { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,7 +37,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
         Guid tenantId = _httpContextAccessor.HttpContext.User.TenantId();
 
-        // Adiciona filtros globais para Tenant nas entidades relevantes
+        //// Adiciona filtros globais para Tenant nas entidades relevantes
         modelBuilder.Entity<Project>().HasQueryFilter(x => x.TenantId == tenantId);
         modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => x.TenantId == tenantId);
         modelBuilder.Entity<InformacoesPreliminaresDominio>().HasQueryFilter(x => x.TenantId == tenantId);

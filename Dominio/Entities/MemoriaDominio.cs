@@ -7,6 +7,7 @@ namespace QuadrosNBR.Dominio.Entities
     public class MemoriaDominio : BaseDominio
     {
         private readonly MemoriaValidator _memoriaValidator = new();
+
         public MemoriaDominio(
             string nomeDaLayer,
             decimal area,
