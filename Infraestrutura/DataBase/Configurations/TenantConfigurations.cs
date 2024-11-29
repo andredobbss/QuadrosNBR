@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuadrosNBR.Infraestrutura.DataBase.Identities;
 
-namespace QuadrosNBR.Infraestrutura.DataBase.Configuracoes
+namespace QuadrosNBR.Infraestrutura.DataBase.Configurations
 {
-    public class TenantConfiguracoes : IEntityTypeConfiguration<Tenant>
+    public class TenantConfigurations : IEntityTypeConfiguration<Tenant>
     {
         public void Configure(EntityTypeBuilder<Tenant> builder)
         {

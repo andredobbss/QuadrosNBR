@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuadrosNBR.Aplicacao.IUnitOfWork;
 using QuadrosNBR.Aplicacao.Mappings;
+using QuadrosNBR.Dominio.Entities;
+using QuadrosNBR.Dominio.Validations;
 using QuadrosNBR.Infraestrutura.DataBase.Contextos;
 using QuadrosNBR.Infraestrutura.DataBase.Identities;
 using QuadrosNBR.Infraestrutura.UnitOfWork;
@@ -62,7 +65,8 @@ public static class DependencesInjections
         //--------------------------------------------------------------------------------
 
 
-
+        services.AddScoped<IValidator<InformacoesPreliminaresDominio>, InformacoesPreliminaresValidator>();
+        services.AddScoped<IValidator<MemoriaDominio>, MemoriaValidator>();
 
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

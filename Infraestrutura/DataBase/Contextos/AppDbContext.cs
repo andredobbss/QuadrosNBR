@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using QuadrosNBR.Dominio.Entities;
-using QuadrosNBR.Infraestrutura.DataBase.Configuracoes;
+using QuadrosNBR.Infraestrutura.DataBase.Configurations;
 using QuadrosNBR.Infraestrutura.DataBase.Identities;
 using QuadrosNBR.Infraestrutura.Extensions;
 
@@ -23,8 +23,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new InformacoesPreliminaresConfiguracoes());
-        modelBuilder.ApplyConfiguration(new TenantConfiguracoes());
+        modelBuilder.ApplyConfiguration(new InformacoesPreliminaresConfigurations());
+        modelBuilder.ApplyConfiguration(new TenantConfigurations());
 
         //Guid tenantId = Guid.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "TenantId").ToString());
 

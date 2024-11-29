@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuadrosNBR.Dominio.Entities;
 
-namespace QuadrosNBR.Infraestrutura.DataBase.Configuracoes;
+namespace QuadrosNBR.Infraestrutura.DataBase.Configurations;
 
-public class InformacoesPreliminaresConfiguracoes : IEntityTypeConfiguration<InformacoesPreliminaresDominio>
+public class InformacoesPreliminaresConfigurations : IEntityTypeConfiguration<InformacoesPreliminaresDominio>
 {
     public void Configure(EntityTypeBuilder<InformacoesPreliminaresDominio> builder)
     {
