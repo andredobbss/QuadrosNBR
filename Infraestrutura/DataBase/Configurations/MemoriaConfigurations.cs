@@ -2,13 +2,12 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuadrosNBR.Dominio.Entities;
 
-namespace QuadrosNBR.Infraestrutura.DataBase.Configurations
+namespace QuadrosNBR.Infraestrutura.DataBase.Configurations;
+
+public class MemoriaConfigurations : IEntityTypeConfiguration<MemoriaDominio>
 {
-    public class MemoriaConfigurations : IEntityTypeConfiguration<MemoriaDominio>
+    public void Configure(EntityTypeBuilder<MemoriaDominio> builder)
     {
-        public void Configure(EntityTypeBuilder<MemoriaDominio> builder)
-        {
-            
-        }
+        
     }
 }

@@ -77,7 +77,7 @@ public class InformacoesPreliminaresDominio : BaseDominio
     public DateTime DataDeAprovacaoDoProjeto { get; private set; } 
     public string NumeroDoAlvara { get; private set; }
 
-    public ValidationResult AddresDomainResult()
+    public ValidationResult InformacoesPreliminaresDominioResult()
     {
         return _informacoesPreliminaresValidator.Validate(this);
     }

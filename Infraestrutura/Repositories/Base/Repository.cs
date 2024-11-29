@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuadrosNBR.Aplicacao.Repositories.Base;
-using QuadrosNBR.Infraestrutura.DataBase.Contextos;
+using QuadrosNBR.Infraestrutura.DataBase.Context;
 using System.Linq.Expressions;
 
 namespace QuadrosNBR.Infraestrutura.Repositories.Base

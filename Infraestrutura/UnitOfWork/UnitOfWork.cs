@@ -1,6 +1,6 @@
 ﻿using QuadrosNBR.Aplicacao.IUnitOfWork;
 using QuadrosNBR.Aplicacao.Repositories;
-using QuadrosNBR.Infraestrutura.DataBase.Contextos;
+using QuadrosNBR.Infraestrutura.DataBase.Context;
 using QuadrosNBR.Infraestrutura.Repositories;
 
 namespace QuadrosNBR.Infraestrutura.UnitOfWork;
@@ -8,6 +8,7 @@ namespace QuadrosNBR.Infraestrutura.UnitOfWork;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly InformacoesPreliminares _informacoesPreliminares;
+    private readonly Memoria _memoria;
 
     private readonly AppDbContext _appDbContext;
 
@@ -29,6 +30,21 @@ public class UnitOfWork : IUnitOfWork
                 return _informacoesPreliminares;
             }
         }
+    }
+
+    public IMemoria Imemoria
+    {
+        get
+        {
+            if (_memoria is null)
+            {
+                return new Memoria(_appDbContext);
+            }
+            else
+            {
+                return _memoria;
+            }
+        } 
     }
 
     public async Task Commit()

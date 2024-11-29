@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuadrosNBR.Aplicacao.IUnitOfWork;
 using QuadrosNBR.Aplicacao.Services.Authentication.Repository;
 using QuadrosNBR.Aplicacao.Services.Authorization.ApplicationUserIdentityDTO;
 using QuadrosNBR.Aplicacao.Services.Authorization.Repository;
@@ -16,10 +17,11 @@ public class AuthorizerController : ControllerBase
     private readonly IAuthorizationRepository _authorizationRepository;
     private readonly IAuthenticationRepository _authenticationRepository;
     private readonly IConfiguration _configuration;
-
-    public AuthorizerController(IAuthorizationRepository authorizationRepository, 
-                                IAuthenticationRepository authenticationRepository, 
-                                IConfiguration configuration)
+  
+    public AuthorizerController(IAuthorizationRepository authorizationRepository,
+                                IAuthenticationRepository authenticationRepository,
+                                IConfiguration configuration,
+                                IUnitOfWork unitOfWork)
     {
         _authorizationRepository = authorizationRepository;
         _authenticationRepository = authenticationRepository;

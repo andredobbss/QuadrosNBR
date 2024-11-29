@@ -6,10 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuadrosNBR.Aplicacao.IUnitOfWork;
 using QuadrosNBR.Aplicacao.Mappings;
+using QuadrosNBR.Aplicacao.Services.Authentication.Repository;
+using QuadrosNBR.Aplicacao.Services.Authorization.Repository;
 using QuadrosNBR.Dominio.Entities;
 using QuadrosNBR.Dominio.Validations;
-using QuadrosNBR.Infraestrutura.DataBase.Contextos;
+using QuadrosNBR.Infraestrutura.DataBase.Context;
 using QuadrosNBR.Infraestrutura.DataBase.Identities;
+using QuadrosNBR.Infraestrutura.Services.Authentication.Repository;
+using QuadrosNBR.Infraestrutura.Services.Authorization.Repository;
 using QuadrosNBR.Infraestrutura.UnitOfWork;
 
 namespace QuadrosNBR.Bootstrap;
@@ -64,11 +68,18 @@ public static class DependencesInjections
         services.AddSingleton(mapper);
         //--------------------------------------------------------------------------------
 
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddScoped<IValidator<InformacoesPreliminaresDominio>, InformacoesPreliminaresValidator>();
         services.AddScoped<IValidator<MemoriaDominio>, MemoriaValidator>();
 
-        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
+
+
+        services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
+        services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

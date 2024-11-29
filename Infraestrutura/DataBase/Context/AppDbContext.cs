@@ -6,7 +6,7 @@ using QuadrosNBR.Infraestrutura.DataBase.Configurations;
 using QuadrosNBR.Infraestrutura.DataBase.Identities;
 using QuadrosNBR.Infraestrutura.Extensions;
 
-namespace QuadrosNBR.Infraestrutura.DataBase.Contextos;
+namespace QuadrosNBR.Infraestrutura.DataBase.Context;
 
 public class AppDbContext : IdentityDbContext<ApplicationUser>
 {
@@ -25,6 +25,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         modelBuilder.ApplyConfiguration(new InformacoesPreliminaresConfigurations());
         modelBuilder.ApplyConfiguration(new TenantConfigurations());
+        modelBuilder.ApplyConfiguration(new MemoriaConfigurations());
+
+
+
+
 
         //Guid tenantId = Guid.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "TenantId").ToString());
 

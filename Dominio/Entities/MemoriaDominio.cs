@@ -11,7 +11,7 @@ namespace QuadrosNBR.Dominio.Entities
             string nomeDaLayer,
             decimal area,
             string descricao,
-            int repeticao,
+            uint repeticao,
             string unidade,
             string pavimento,
             string uso,
@@ -52,7 +52,7 @@ namespace QuadrosNBR.Dominio.Entities
         public string NomeDaLayer { get; private set; }
         public decimal Area { get; private set; }
         public string Descricao { get; private set; }
-        public int Repeticao { get; private set; }
+        public uint Repeticao { get; private set; }
         public string Unidade { get; private set; }
         public string Pavimento { get; private set; }
         public string Uso { get; private set; }
@@ -195,7 +195,7 @@ namespace QuadrosNBR.Dominio.Entities
             }
         }
 
-        public ValidationResult AddresDomainResult()
+        public ValidationResult MemoriaDominioResult()
         {
             return _memoriaValidator.Validate(this);
         }
