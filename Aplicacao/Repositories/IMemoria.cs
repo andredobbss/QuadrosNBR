@@ -5,5 +5,5 @@ namespace QuadrosNBR.Aplicacao.Repositories;
 
 public interface IMemoria : IRepository<MemoriaDominio>
 {
-    void AreaAutocad(MemoriaDominio memoriaDominio, string dwgFilePath);
+    void AreaAutocad(Guid ProjetoId, Guid TenantId, string dwgFilePath);
 }

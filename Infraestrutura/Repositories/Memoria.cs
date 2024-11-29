@@ -9,15 +9,15 @@ namespace QuadrosNBR.Infraestrutura.Repositories;
 
 public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_appDbContext), IMemoria
 {
-    public void AreaAutocad(MemoriaDominio memoriaDominio, string dwgFilePath)
+    public void AreaAutocad(Guid ProjetoId, Guid TenantId, string dwgFilePath)
     {
-        var areas = GetArea(memoriaDominio, dwgFilePath);
+        var areas = GetArea(ProjetoId, TenantId, dwgFilePath);
 
         if (areas is not null)
             _appDbContext.Memorias.BulkSynchronize(areas);
     }
 
-    private static List<MemoriaDominio>? GetArea(MemoriaDominio memoria, string dwgFilePath)
+    private static List<MemoriaDominio>? GetArea(Guid ProjetoId, Guid TenantId, string dwgFilePath)
     {
         if (Path.Exists(dwgFilePath) is true)
             return null;
@@ -48,7 +48,8 @@ public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_a
 
                     if (layer.Lock is false)
                     {
-                        MemoriaDominio memoriaDominios = new(polyline.Layer,
+                        MemoriaDominio memoriaDominios = new(
+                            polyline.Layer,
                             (decimal)polyline.Area,
                             null,
                             0,
@@ -61,8 +62,8 @@ public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_a
                             false,
                             null,
                             false,
-                            memoria.ProjetoId,
-                            memoria.TenantId);
+                            ProjetoId,
+                            TenantId);
 
                         memoriaDominio.Add(memoriaDominios);
                     }
