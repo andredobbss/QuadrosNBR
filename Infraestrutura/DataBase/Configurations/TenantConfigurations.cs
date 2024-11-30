@@ -8,7 +8,9 @@ namespace QuadrosNBR.Infraestrutura.DataBase.Configurations
     {
         public void Configure(EntityTypeBuilder<Tenant> builder)
         {
-          
+
+            builder.ToTable("Tenant");
+
             builder.HasKey(t => t.Id);
 
             // Configurar relação Tenant -> Projects

@@ -19,16 +19,18 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Tenant>? Tenants { get; set; }
     public DbSet<Project>? Projects { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     public DbSet<InformacoesPreliminaresDominio>? InformacoesPreliminares { get; set; }
     public DbSet<MemoriaDominio>  Memorias { get; set; }
-
+   
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new InformacoesPreliminaresConfigurations());
         modelBuilder.ApplyConfiguration(new TenantConfigurations());
         modelBuilder.ApplyConfiguration(new MemoriaConfigurations());
-
+        modelBuilder.ApplyConfiguration(new ApplicationUserConfigurations());
+        modelBuilder.ApplyConfiguration(new ProjectConfigurations());
 
 
 
