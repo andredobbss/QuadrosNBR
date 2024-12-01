@@ -20,12 +20,12 @@ public class InformacoesPreliminaresDominio : BaseDominio
         string cidadeDoImovel, 
         string uFdoImovel, 
         string designacaoDoImovel, 
-        uint unidadesAutonomasDoImovel, 
+        ushort unidadesAutonomasDoImovel, 
         string padraoDeAcabamentoDoImovel, 
-        uint numeroDePavimentosDoImovel, 
-        uint numeroDeVagasDeAutomovelAutonomas, 
-        uint numeroDeVagasDeAutomovelAcessorias, 
-        uint numeroDeVagasDeAutomovelComum, 
+        ushort numeroDePavimentosDoImovel, 
+        ushort numeroDeVagasDeAutomovelAutonomas, 
+        ushort numeroDeVagasDeAutomovelAcessorias, 
+        ushort numeroDeVagasDeAutomovelComum, 
         decimal areaDoLote, 
         DateTime dataDeAprovacaoDoProjeto, 
         string numeroDoAlvara, 
@@ -67,12 +67,12 @@ public class InformacoesPreliminaresDominio : BaseDominio
     public string CidadeDoImovel { get; private set; } 
     public string UFdoImovel { get; private set; } 
     public string DesignacaoDoImovel { get; private set; } 
-    public uint UnidadesAutonomasDoImovel { get; private set; } 
+    public ushort UnidadesAutonomasDoImovel { get; private set; } 
     public string PadraoDeAcabamentoDoImovel { get; private set; }
-    public uint NumeroDePavimentosDoImovel { get; private set; } 
-    public uint NumeroDeVagasDeAutomovelAutonomas { get; private set; } 
-    public uint NumeroDeVagasDeAutomovelAcessorias { get; private set; } 
-    public uint NumeroDeVagasDeAutomovelComum { get; private set; } 
+    public ushort NumeroDePavimentosDoImovel { get; private set; } 
+    public ushort NumeroDeVagasDeAutomovelAutonomas { get; private set; } 
+    public ushort NumeroDeVagasDeAutomovelAcessorias { get; private set; } 
+    public ushort NumeroDeVagasDeAutomovelComum { get; private set; } 
     public decimal AreaDoLote { get; private set; } 
     public DateTime DataDeAprovacaoDoProjeto { get; private set; } 
     public string NumeroDoAlvara { get; private set; }

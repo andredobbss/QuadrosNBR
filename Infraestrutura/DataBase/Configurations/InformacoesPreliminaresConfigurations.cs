@@ -102,7 +102,7 @@ public class InformacoesPreliminaresConfigurations : IEntityTypeConfiguration<In
         builder.Property(x => x.UnidadesAutonomasDoImovel)
             .IsRequired()
             .HasColumnName("UnidadesAutonomasDoImovel")
-            .HasColumnType("SMALLINT");
+            .HasColumnType("tinyint");
 
         builder.Property(x => x.PadraoDeAcabamentoDoImovel)
             .HasColumnName("PadraoDeAcabamentoDoImovel")
@@ -112,19 +112,19 @@ public class InformacoesPreliminaresConfigurations : IEntityTypeConfiguration<In
         builder.Property(x => x.NumeroDePavimentosDoImovel)
             .IsRequired()
             .HasColumnName("NumeroDePavimentosDoImovel")
-            .HasColumnType("SMALLINT");
+            .HasColumnType("tinyint");
 
         builder.Property(x => x.NumeroDeVagasDeAutomovelAutonomas)
             .HasColumnName("NumeroDeVagasDeAutomovelAutonomas")
-            .HasColumnType("SMALLINT");
+            .HasColumnType("tinyint");
 
         builder.Property(x => x.NumeroDeVagasDeAutomovelAcessorias)
             .HasColumnName("NumeroDeVagasDeAutomovelAcessorias")
-            .HasColumnType("SMALLINT");
+            .HasColumnType("tinyint");
 
         builder.Property(x => x.NumeroDeVagasDeAutomovelComum)
             .HasColumnName("NumeroDeVagasDeAutomovelComum")
-            .HasColumnType("SMALLINT");
+            .HasColumnType("tinyint");
 
         builder.Property(x => x.AreaDoLote)
             .IsRequired()

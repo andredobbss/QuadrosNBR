@@ -16,10 +16,11 @@ public class AuthorizerController : ControllerBase
     private readonly IAuthorizationRepository _authorizationRepository;
     private readonly IAuthenticationRepository _authenticationRepository;
     private readonly IConfiguration _configuration;
-   
+  
     public AuthorizerController(IAuthorizationRepository authorizationRepository,
                                 IAuthenticationRepository authenticationRepository,
                                 IConfiguration configuration)
+                               
     {
         _authorizationRepository = authorizationRepository;
         _authenticationRepository = authenticationRepository;
@@ -42,7 +43,7 @@ public class AuthorizerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> RegisterUser([FromBody] ApplicationUserDto userModel)
+    public async Task<ActionResult> RegisterUser([FromBody] ApplicationUserDto userModel)
     {
         try
         {
@@ -79,7 +80,7 @@ public class AuthorizerController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Login([FromBody] ApplicationUserDto userModel)
+    public async Task<ActionResult> Login([FromBody] ApplicationUserDto userModel)
     {
         try
         {

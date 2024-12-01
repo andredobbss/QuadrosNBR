@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuadrosNBR.Aplicacao.Repositories.Base;
 using QuadrosNBR.Infraestrutura.DataBase.Context;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace QuadrosNBR.Infraestrutura.Repositories.Base
@@ -14,14 +15,14 @@ namespace QuadrosNBR.Infraestrutura.Repositories.Base
             _appDbContext = appDbContext;
         }
 
-        public IQueryable<TEntity> GetAllAsync()
+        public IQueryable<TEntity> GetAllAsync(Expression<Func<TEntity, bool>> predicateProjetoId)
         {
-            return _appDbContext.Set<TEntity>().AsNoTracking();
+            return _appDbContext.Set<TEntity>().Where(predicateProjetoId);
         }
 
-        public async Task<TEntity> GetById(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity> GetByIdAsync(Expression<Func<TEntity, bool>> predicateProjetoId, Expression<Func<TEntity, bool>> predicateId)
         {
-            return await _appDbContext.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(predicate);
+            return await _appDbContext.Set<TEntity>().Where(predicateProjetoId).SingleOrDefaultAsync(predicateId);
         }
 
         public void Add(TEntity entity)

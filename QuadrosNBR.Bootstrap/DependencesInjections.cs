@@ -35,6 +35,7 @@ public static class DependencesInjections
 
         services.AddIdentityCore<ApplicationUser>(options =>
         options.SignIn.RequireConfirmedAccount = true)
+               .AddRoles<IdentityRole>()
                .AddEntityFrameworkStores<AppDbContext>();
 
 

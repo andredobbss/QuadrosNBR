@@ -16,12 +16,12 @@ public class InformacoesPreliminaresDTO : BaseDTO
     public string CidadeDoImovel { get; set; } = null!;
     public string UFdoImovel { get; set; } = null!;
     public string DesignacaoDoImovel { get; set; } = null!;
-    public uint UnidadesAutonomasDoImovel { get; set; } 
+    public ushort UnidadesAutonomasDoImovel { get; set; } 
     public string PadraoDeAcabamentoDoImovel { get; set; } = null!;
-    public uint NumeroDePavimentosDoImovel { get; set; } 
-    public uint NumeroDeVagasDeAutomovelAutonomas { get; set; } 
-    public uint NumeroDeVagasDeAutomovelAcessorias { get; set; } 
-    public uint NumeroDeVagasDeAutomovelComum { get;  set; } 
+    public ushort NumeroDePavimentosDoImovel { get; set; } 
+    public ushort NumeroDeVagasDeAutomovelAutonomas { get; set; } 
+    public ushort NumeroDeVagasDeAutomovelAcessorias { get; set; } 
+    public ushort NumeroDeVagasDeAutomovelComum { get;  set; } 
     public decimal AreaDoLote { get;  set; } 
     public DateTime DataDeAprovacaoDoProjeto { get;  set; } 
     public string NumeroDoAlvara { get;  set; } = null!;

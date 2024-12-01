@@ -9,77 +9,100 @@ namespace QuadrosNBR.Dominio.Entities
         private readonly MemoriaValidator _memoriaValidator = new();
 
         public MemoriaDominio(
+            string? dependencia,
             string nomeDaLayer,
             decimal area,
-            string descricao,
-            uint repeticao,
-            string unidade,
-            string pavimento,
-            string uso,
-            decimal coeficiente,
-            bool areaCobertaAberta,
-            bool proporcionalidade,
-            bool acessoria,
-            string observacao,
-            bool terreno,
+            ushort? ordenacao,
+            ushort? repeticao,
+            string? pavimento,
+            string? uso,
+            decimal? coeficiente,
+            bool? decideDivisaoProporcional,
+            bool? decideAreaPadrao,
+            bool? decideAreaAcessoria,
+            bool? decideAreaDoTerreno,
+            string? observacao,
             Guid projetoId,
             Guid tenantId) : base(projetoId, tenantId)
         {
+            Dependencia = dependencia;
             NomeDaLayer = nomeDaLayer;
-            Area = area;
-            Descricao = descricao;
+            Area = Math.Round(area, 4);
+            Ordenacao = ordenacao;
             Repeticao = repeticao;
-            Unidade = unidade;
             Pavimento = pavimento;
             Uso = uso;
             Coeficiente = coeficiente;
-            AreaCobertaAberta = areaCobertaAberta;
-            Proporcionalidade = proporcionalidade;
-            Acessoria = acessoria;
+            DecideDivisaoProporcional = decideDivisaoProporcional;
+            DecideAreaPadrao = decideAreaPadrao;
+            DecideAreaAcessoria = decideAreaAcessoria;
+            DecideAreaDoTerreno = decideAreaDoTerreno;
             Observacao = observacao;
-            Terreno = terreno;
-            AreaCobertaPadrao = CalculoAreaCobertaAberta();
-            AreaDiferenteDaCobertaPadrao = CalculoAreaDiferenteDaCobertaPadrao();
-            AreaEquivalenteDiferenteDaCobertaPadraoTotal = CalculoAreaEquivalenteDiferenteDaCobertaPadraoTotal();
-            AreaEquivalenteDiferenteDaCobertaPadraoUnitaria = CalculoAreaEquivalenteDiferenteDaCobertaPadraoInitaria();
-            AreaCobertaPadrao1 = CalculoAreaCobertaPadrao1();
-            AreaDiferenteDaCobertaPadrao1 = CalculoAreaDiferenteDaCobertaPadrao1();
-            AreaEquivalenteDiferenteDaCobertaPadraoTotal1 = CalculoAreaEquivalenteDiferenteDaCobertaPadraoTotal1();
-            AreaEquivalenteDiferenteDaCobertaPadraoUnitaria1 = CalculoAreaEquivalenteDiferenteDaCobertaPadraoUnitaria1();
-            AreaAcessoria = CalculoAreaAcessoria();
-            AreaDoTerreno = CalculoAreaDoTerreno();
+            AreaRealCobertaPadraoTotal = CalculaAreaRealCobertaPadraoTotal();
+            AreaRealDiferenteDaCobertaPadraoTotal = CalculaAreaRealDiferenteDaCobertaPadraoTotal();
+            AreaEquivalenteDiferenteDaCobertaPadraoTotal = CalculaAreaEquivalenteDiferenteDaCobertaPadraoTotal();
+            AreaEquivalenteDiferenteDaCobertaPadraoUnitaria = CalculaAreaEquivalenteDiferenteDaCobertaPadraoUnitaria();
+            AreaDoTerreno = CalculaAreaDoTerreno();
         }
 
+        public string? Dependencia { get; private set; } = null;
         public string NomeDaLayer { get; private set; }
         public decimal Area { get; private set; }
-        public string? Descricao { get; private set; } = string.Empty;
-        public uint Repeticao { get; private set; }
-        public string? Unidade { get; private set; } = string.Empty;
-        public string? Pavimento { get; private set; } = string.Empty;
-        public string? Uso { get; private set; } = string.Empty;
-        public decimal Coeficiente { get; private set; }
-        public bool AreaCobertaAberta { get; private set; }
-        public bool Proporcionalidade { get; private set; }
-        public bool Acessoria { get; private set; }
-        public string? Observacao { get; private set; } = string.Empty;
-        public bool Terreno { get; private set; }
-        public double AreaCobertaPadrao { get; private set; }
-        public double AreaDiferenteDaCobertaPadrao { get; private set; }
-        public double AreaEquivalenteDiferenteDaCobertaPadraoTotal { get; private set; }
-        public double AreaEquivalenteDiferenteDaCobertaPadraoUnitaria { get; private set; }
-        public double AreaCobertaPadrao1 { get; private set; }
-        public double AreaDiferenteDaCobertaPadrao1 { get; private set; }
-        public double AreaEquivalenteDiferenteDaCobertaPadraoTotal1 { get; private set; }
-        public double AreaEquivalenteDiferenteDaCobertaPadraoUnitaria1 { get; private set; }
-        public double AreaAcessoria { get; private set; }
-        public double AreaDoTerreno { get; private set; }
+        public ushort? Ordenacao { get; private set; } = null;
+        public ushort? Repeticao { get; private set; } = null;
+        public string? Pavimento { get; private set; } = null;
+        public string? Uso { get; private set; } = null;
+        public decimal? Coeficiente { get; private set; } = null;
+        public bool? DecideDivisaoProporcional { get; private set; } = null;
+        public bool? DecideAreaPadrao { get; private set; } = null;
+        public bool? DecideAreaAcessoria { get; private set; } = null;
+        public bool? DecideAreaDoTerreno { get; private set; } = null;
+        public string? Observacao { get; private set; } = null;
+        public decimal AreaRealCobertaPadraoTotal { get; private set; }
+        public decimal AreaRealDiferenteDaCobertaPadraoTotal { get; private set; }
+        public decimal AreaEquivalenteDiferenteDaCobertaPadraoTotal { get; private set; }
+        public decimal AreaEquivalenteDiferenteDaCobertaPadraoUnitaria { get; private set; }
+        public decimal AreaDoTerreno { get; private set; }
 
-
-        private double CalculoAreaCobertaAberta()
+        private decimal CalculaAreaRealCobertaPadraoTotal()
         {
-            if (AreaCobertaAberta is true && Acessoria is false && Terreno is false)
+            if (DecideAreaPadrao is true)
             {
-                return (double)Math.Round(Area * Repeticao, 4);
+                AreaRealDiferenteDaCobertaPadraoTotal = 0;
+                AreaEquivalenteDiferenteDaCobertaPadraoTotal = 0;
+                AreaEquivalenteDiferenteDaCobertaPadraoUnitaria = 0;
+                DecideAreaDoTerreno = false;
+                AreaDoTerreno = 0;
+                try
+                {
+                    return (decimal)(Area * Repeticao);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                AreaRealCobertaPadraoTotal = 0;
+                DecideAreaDoTerreno = false;
+                AreaDoTerreno = 0;
+                return 0;
+            }
+        }
+
+        private decimal CalculaAreaRealDiferenteDaCobertaPadraoTotal()
+        {
+            if (DecideAreaPadrao is false)
+            {
+                try
+                {
+                    return (decimal)(Area * Repeticao);
+                }
+                catch
+                {
+                    return 0;
+                }
             }
             else
             {
@@ -87,11 +110,18 @@ namespace QuadrosNBR.Dominio.Entities
             }
         }
 
-        private double CalculoAreaDiferenteDaCobertaPadrao()
+        private decimal CalculaAreaEquivalenteDiferenteDaCobertaPadraoTotal()
         {
-            if(AreaCobertaAberta is false && Acessoria is false && Terreno is false)
+            if (DecideAreaPadrao is false)
             {
-                return (double)Math.Round(Area * Repeticao, 4);
+                try
+                {
+                    return (decimal)(Area * Repeticao * Coeficiente);
+                }
+                catch
+                {
+                    return 0;
+                }
             }
             else
             {
@@ -99,11 +129,18 @@ namespace QuadrosNBR.Dominio.Entities
             }
         }
 
-        private double CalculoAreaEquivalenteDiferenteDaCobertaPadraoTotal()
+        private decimal CalculaAreaEquivalenteDiferenteDaCobertaPadraoUnitaria()
         {
-            if (AreaCobertaAberta is false && Acessoria is false && Terreno is false)
+            if (DecideAreaPadrao is false)
             {
-                return (double)Math.Round(Area * Repeticao * Coeficiente, 4);
+                try
+                {
+                    return (decimal)(Area * Coeficiente);
+                }
+                catch
+                {
+                    return 0;
+                }
             }
             else
             {
@@ -111,84 +148,23 @@ namespace QuadrosNBR.Dominio.Entities
             }
         }
 
-        private double CalculoAreaEquivalenteDiferenteDaCobertaPadraoInitaria()
+        private decimal CalculaAreaDoTerreno()
         {
-            if (AreaCobertaAberta is false && Acessoria is false && Terreno is false)
+            if (DecideAreaDoTerreno is true)
             {
-                return (double)Math.Round(Area * Repeticao, 4);
-            }
-            else
-            {
-                return 0;
-            }
-
-        }
-
-        private double CalculoAreaCobertaPadrao1()
-        {
-            if (AreaCobertaAberta is true && Acessoria is false && Terreno is false)
-            {
-                return (double)Math.Round(Area, 4);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        private double CalculoAreaDiferenteDaCobertaPadrao1()
-        {
-            if (AreaCobertaAberta is false && Acessoria is false && Terreno is false)
-            {
-                return (double)Math.Round(Area, 4);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        private double CalculoAreaEquivalenteDiferenteDaCobertaPadraoTotal1()
-        {
-            if (AreaCobertaAberta is false && Acessoria is false && Terreno is false)
-            {
-                return (double)Math.Round(Area * Coeficiente, 4);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        private double CalculoAreaEquivalenteDiferenteDaCobertaPadraoUnitaria1()
-        {
-            if (AreaCobertaAberta is false && Acessoria is false && Terreno is false)
-            {
-                return (double)Math.Round(Area * Coeficiente, 4);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-         
-        private double CalculoAreaAcessoria()
-        {
-            if(Acessoria is true)
-            {
-                return (double)Math.Round(Area, 4);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        private double CalculoAreaDoTerreno()
-        {
-            if (Terreno is true)
-            {
-                return (double)Math.Round(Area, 4);
+                AreaRealCobertaPadraoTotal = 0;
+                AreaRealDiferenteDaCobertaPadraoTotal = 0;
+                AreaEquivalenteDiferenteDaCobertaPadraoTotal = 0;
+                AreaEquivalenteDiferenteDaCobertaPadraoUnitaria = 0;
+                DecideAreaPadrao = false;
+                try
+                {
+                    return (decimal)(Area * Repeticao);
+                }
+                catch
+                {
+                    return 0;
+                }
             }
             else
             {

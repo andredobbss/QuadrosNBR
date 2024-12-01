@@ -4,17 +4,17 @@ namespace QuadrosNBR.Aplicacao.DTOs;
 
 public class MemoriaDTO : BaseDTO
 {
-    public string NomeDaLayer { get; private set; } = null!;
-    public decimal Area { get; private set; }
-    public string? Descricao { get; private set; }
-    public int Repeticao { get; private set; }
-    public string? Unidade { get; private set; }
-    public string? Pavimento { get; private set; }
-    public string? Uso { get; private set; }
-    public decimal Coeficiente { get; private set; }
-    public bool AreaCobertaAberta { get; private set; }
-    public bool Proporcionalidade { get; private set; }
-    public bool Acessoria { get; private set; }
-    public string? Observacao { get; private set; }
-    public bool Terreno { get; private set; }
+    public string? Dependencia { get; set; } = null;
+    public string NomeDaLayer { get; set; }
+    public decimal Area { get; set; }
+    public ushort? Ordenacao { get;  set; } = null;
+    public ushort? Repeticao { get;  set; } = null;
+    public string? Pavimento { get;  set; } = null;
+    public string? Uso { get;  set; } = null;
+    public decimal? Coeficiente { get;  set; } = null;
+    public bool? DecideDivisaoProporcional { get;  set; } = null;
+    public bool? DecideAreaPadrao { get;  set; } = null;
+    public bool? DecideAreaAcessoria { get;  set; } = null;
+    public bool? DecideAreaDoTerreno { get;  set; } = null;
+    public string? Observacao { get;  set; } = null;
 }
