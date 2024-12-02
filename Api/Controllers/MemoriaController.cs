@@ -26,7 +26,7 @@ public class MemoriaController : ControllerBase
 
    
     [HttpPost]
-    public ActionResult<string> PostAreaAutocad([FromRoute] string projid, string tenantId, string dwgFilePath)
+    public ActionResult PostAreaAutocad([FromRoute] string projid, string tenantId, string dwgFilePath)
     {
         var area =  _unitOfWork.Imemoria.AreaAutocad(Guid.Parse(projid), Guid.Parse(tenantId), dwgFilePath);
      
