@@ -5,6 +5,7 @@ using QuadrosNBR.Dominio.Entities;
 using QuadrosNBR.Infraestrutura.DataBase.Context;
 using QuadrosNBR.Infraestrutura.Repositories.Base;
 
+
 namespace QuadrosNBR.Infraestrutura.Repositories;
 
 public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_appDbContext), IMemoria
@@ -75,6 +76,7 @@ public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_a
                             null,
                             null,
                             0,
+                            false,
                             false,
                             false,
                             false,

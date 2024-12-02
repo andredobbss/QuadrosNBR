@@ -20,6 +20,7 @@ namespace QuadrosNBR.Dominio.Entities
             bool? decideDivisaoProporcional,
             bool? decideAreaPadrao,
             bool? decideAreaAcessoria,
+            bool? decideAreaSubrogada,
             bool? decideAreaDoTerreno,
             string? observacao,
             Guid projetoId,
@@ -36,6 +37,7 @@ namespace QuadrosNBR.Dominio.Entities
             DecideDivisaoProporcional = decideDivisaoProporcional;
             DecideAreaPadrao = decideAreaPadrao;
             DecideAreaAcessoria = decideAreaAcessoria;
+            DecideAreaSubrogada = decideAreaSubrogada;
             DecideAreaDoTerreno = decideAreaDoTerreno;
             Observacao = observacao;
             AreaRealCobertaPadraoTotal = CalculaAreaRealCobertaPadraoTotal();
@@ -56,6 +58,7 @@ namespace QuadrosNBR.Dominio.Entities
         public bool? DecideDivisaoProporcional { get; private set; } = null;
         public bool? DecideAreaPadrao { get; private set; } = null;
         public bool? DecideAreaAcessoria { get; private set; } = null;
+        public bool? DecideAreaSubrogada { get; private set; } = null;
         public bool? DecideAreaDoTerreno { get; private set; } = null;
         public string? Observacao { get; private set; } = null;
         public decimal AreaRealCobertaPadraoTotal { get; private set; }

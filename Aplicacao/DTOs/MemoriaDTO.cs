@@ -5,7 +5,7 @@ namespace QuadrosNBR.Aplicacao.DTOs;
 public class MemoriaDTO : BaseDTO
 {
     public string? Dependencia { get; set; } = null;
-    public string NomeDaLayer { get; set; }
+    public string NomeDaLayer { get; set; } = null!;
     public decimal Area { get; set; }
     public ushort? Ordenacao { get;  set; } = null;
     public ushort? Repeticao { get;  set; } = null;
@@ -15,6 +15,7 @@ public class MemoriaDTO : BaseDTO
     public bool? DecideDivisaoProporcional { get;  set; } = null;
     public bool? DecideAreaPadrao { get;  set; } = null;
     public bool? DecideAreaAcessoria { get;  set; } = null;
+    public bool? DecideAreaSubrogada { get; set; } = null;
     public bool? DecideAreaDoTerreno { get;  set; } = null;
     public string? Observacao { get;  set; } = null;
 }

@@ -29,8 +29,8 @@ public class MemoriaController : ControllerBase
     public ActionResult<string> Get([FromRoute] string projid, string tenantId, string dwgFilePath)
     {
         var area =  _unitOfWork.Imemoria.AreaAutocad(Guid.Parse(projid), Guid.Parse(tenantId), dwgFilePath);
-
-        if(area == false)
+     
+        if (area == false)
         {
             return NotFound();
         }

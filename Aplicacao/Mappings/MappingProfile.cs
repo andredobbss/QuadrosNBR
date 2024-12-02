@@ -10,5 +10,6 @@ public class MappingProfile : Profile
     {
         CreateMap<MemoriaDominio, MemoriaDTO>().ReverseMap();
         CreateMap<InformacoesPreliminaresDominio, InformacoesPreliminaresDTO>().ReverseMap();
+        CreateMap<PavimentoDominio, PavimentoDTO>().ReverseMap();
     }
 }

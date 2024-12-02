@@ -16,12 +16,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         _httpContextAccessor = httpContextAccessor;
     }
 
-
     public DbSet<Tenant>? Tenants { get; set; }
     public DbSet<Project>? Projects { get; set; }
-    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+    public DbSet<ApplicationUser>? ApplicationUsers { get; set; }
     public DbSet<InformacoesPreliminaresDominio>? InformacoesPreliminares { get; set; }
-    public DbSet<MemoriaDominio>  Memorias { get; set; }
+    public DbSet<MemoriaDominio>?  Memorias { get; set; }
+    public DbSet<PavimentoDominio>? Pavimentos { get; set; }
    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.ApplyConfiguration(new MemoriaConfigurations());
         modelBuilder.ApplyConfiguration(new ApplicationUserConfigurations());
         modelBuilder.ApplyConfiguration(new ProjectConfigurations());
-
+        modelBuilder.ApplyConfiguration(new PavimentoConfigurations());
 
 
 
@@ -43,6 +43,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         modelBuilder.Entity<Project>().HasQueryFilter(x => x.TenantId == tenantId);
         modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => x.TenantId == tenantId);
         modelBuilder.Entity<InformacoesPreliminaresDominio>().HasQueryFilter(x => x.TenantId == tenantId);
+        modelBuilder.Entity<MemoriaDominio>().HasQueryFilter(x => x.TenantId == tenantId);
+        modelBuilder.Entity<PavimentoDominio>().HasQueryFilter(x => x.TenantId == tenantId);
 
     }
 }

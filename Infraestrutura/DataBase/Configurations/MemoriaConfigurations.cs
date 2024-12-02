@@ -80,6 +80,11 @@ public class MemoriaConfigurations : IEntityTypeConfiguration<MemoriaDominio>
             .HasColumnType("BIT")
             .HasDefaultValue(false);
 
+        builder.Property(x => x.DecideAreaSubrogada)
+           .HasColumnName("DecideAreaSubrogada")
+           .HasColumnType("BIT")
+           .HasDefaultValue(false);
+
         builder.Property(x => x.DecideAreaDoTerreno)
             .HasColumnName("DecideAreaDoTerreno")
             .HasColumnType("BIT")
@@ -121,6 +126,7 @@ public class MemoriaConfigurations : IEntityTypeConfiguration<MemoriaDominio>
         builder.HasIndex(x => x.Uso, "IX_Memoria_Uso");
         builder.HasIndex(x => x.DecideDivisaoProporcional, "IX_Memoria_DecideDivisaoProporcional");
         builder.HasIndex(x => x.DecideAreaAcessoria, "IX_Memoria_DecideAreaAcessoria");
+        builder.HasIndex(x => x.DecideAreaSubrogada, "IX_Memoria_DecideAreaSubrogada");
         builder.HasIndex(x => x.DecideAreaDoTerreno, "IX_Memoria_DecideAreaDoTerreno");
 
     }

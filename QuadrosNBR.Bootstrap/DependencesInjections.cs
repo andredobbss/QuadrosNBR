@@ -73,6 +73,7 @@ public static class DependencesInjections
 
         services.AddScoped<IValidator<InformacoesPreliminaresDominio>, InformacoesPreliminaresValidator>();
         services.AddScoped<IValidator<MemoriaDominio>, MemoriaValidator>();
+        services.AddScoped<IValidator<PavimentoDominio>, PavimentoValidator>();
 
 
 
