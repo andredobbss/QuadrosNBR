@@ -5,13 +5,17 @@ using QuadrosNBR.Infraestrutura.Repositories;
 
 namespace QuadrosNBR.Infraestrutura.UnitOfWork;
 
-public class UnitOfWork(AppDbContext appDbContext) : IUnitOfWork
+public class UnitOfWork : IUnitOfWork
 {
     private readonly InformacoesPreliminares? _informacoesPreliminares;
     private readonly Memoria? _memoria;
     private readonly Pavimento? _pavimento;
 
-    private readonly AppDbContext _appDbContext = appDbContext;
+    private readonly AppDbContext _appDbContext;
+    public UnitOfWork(AppDbContext appDbContext)
+    {
+        _appDbContext = appDbContext;
+    }
 
     public IInformacoesPreliminares IInformacoesPreliminares
     {
@@ -40,16 +44,16 @@ public class UnitOfWork(AppDbContext appDbContext) : IUnitOfWork
             {
                 return _memoria;
             }
-        } 
+        }
     }
 
     public IPavimento Ipavimento
     {
         get
         {
-            if( _pavimento is null)
-            {  
-                return new Pavimento(_appDbContext); 
+            if (_pavimento is null)
+            {
+                return new Pavimento(_appDbContext);
             }
             else
             {
@@ -57,7 +61,7 @@ public class UnitOfWork(AppDbContext appDbContext) : IUnitOfWork
             }
         }
     }
-     
+
     public async Task Commit()
     {
         await _appDbContext.SaveChangesAsync();

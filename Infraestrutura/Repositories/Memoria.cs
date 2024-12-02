@@ -8,8 +8,14 @@ using QuadrosNBR.Infraestrutura.Repositories.Base;
 
 namespace QuadrosNBR.Infraestrutura.Repositories;
 
-public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_appDbContext), IMemoria
+public class Memoria : Repository<MemoriaDominio>, IMemoria
 {
+    private readonly AppDbContext _appDbContext;
+    public Memoria(AppDbContext appDbContext) : base(appDbContext)
+    {
+        _appDbContext = appDbContext;
+    }
+
     public bool AreaAutocad(Guid projetoId, Guid tenantId, string dwgFilePath)
     {
         var areas = GetArea(projetoId, tenantId, dwgFilePath);
@@ -30,7 +36,7 @@ public class Memoria(AppDbContext _appDbContext) : Repository<MemoriaDominio>(_a
         if (Path.Exists(dwgFilePath) is true)
             return null;
 
-        List<MemoriaDominio> memoriaDominio = [];
+        List<MemoriaDominio> memoriaDominio = new();
 
         ushort? Ordenacao;
 

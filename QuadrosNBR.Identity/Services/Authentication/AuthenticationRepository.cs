@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace QuadrosNBR.Infraestrutura.Services.Authentication.Repository;
+namespace QuadrosNBR.Identity.Services.Authentication;
 
 public class AuthenticationRepository : IAuthenticationRepository
 {

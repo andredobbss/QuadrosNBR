@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace QuadrosNBR.Infraestrutura.Extensions;
+namespace QuadrosNBR.Aplicacao.Extensions;
 
 public static class ClaimsPrincipalExtension
 {
@@ -16,5 +16,4 @@ public static class ClaimsPrincipalExtension
             return Guid.Empty;
         }
     }
-
 }

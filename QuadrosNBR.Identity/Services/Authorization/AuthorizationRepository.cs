@@ -1,26 +1,27 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using QuadrosNBR.Aplicacao.Services.Authorization.ApplicationUserIdentityDTO;
 using QuadrosNBR.Aplicacao.Services.Authorization.Repository;
+using QuadrosNBR.Dominio.Identities;
 
-namespace QuadrosNBR.Infraestrutura.Services.Authorization.Repository;
+namespace QuadrosNBR.Identity.Services.Authorization;
 
 public class AuthorizationRepository : IAuthorizationRepository
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public AuthorizationRepository(UserManager<IdentityUser> userManager)
+    public AuthorizationRepository(UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
     }
 
-    public async Task<IdentityUser> Login(ApplicationUserDto applicationUserDto)
+    public async Task<ApplicationUser> Login(ApplicationUserDto applicationUserDto)
     {
         return await _userManager.FindByNameAsync(applicationUserDto.Email);
     }
 
     public async Task<IdentityResult> Register(ApplicationUserDto applicationUserDto)
     {
-        var user = new IdentityUser
+        var user = new ApplicationUser
         {
             UserName = applicationUserDto.Email
         };
@@ -28,9 +29,8 @@ public class AuthorizationRepository : IAuthorizationRepository
         return await _userManager.CreateAsync(user, applicationUserDto.Password);
     }
 
-    public async Task<bool> CheckPasswords(IdentityUser user, ApplicationUserDto applicationUserDto)
+    public async Task<bool> CheckPasswords(ApplicationUser user, ApplicationUserDto applicationUserDto)
     {
         return await _userManager.CheckPasswordAsync(user, applicationUserDto.Password);
     }
-
 }

@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuadrosNBR.Aplicacao.IUnitOfWork;
@@ -9,11 +10,12 @@ using QuadrosNBR.Aplicacao.Mappings;
 using QuadrosNBR.Aplicacao.Services.Authentication.Repository;
 using QuadrosNBR.Aplicacao.Services.Authorization.Repository;
 using QuadrosNBR.Dominio.Entities;
+using QuadrosNBR.Dominio.Identities;
 using QuadrosNBR.Dominio.Validations;
+using QuadrosNBR.Identity.Database.Context;
+using QuadrosNBR.Identity.Services.Authentication;
+using QuadrosNBR.Identity.Services.Authorization;
 using QuadrosNBR.Infraestrutura.DataBase.Context;
-using QuadrosNBR.Infraestrutura.DataBase.Identities;
-using QuadrosNBR.Infraestrutura.Services.Authentication.Repository;
-using QuadrosNBR.Infraestrutura.Services.Authorization.Repository;
 using QuadrosNBR.Infraestrutura.UnitOfWork;
 
 namespace QuadrosNBR.Bootstrap;
@@ -21,22 +23,27 @@ namespace QuadrosNBR.Bootstrap;
 public static class DependencesInjections
 {
     public static void Dependens(IServiceCollection services,
-                                string? connection)
+                                string? connection,
+                                string? connectionIdentity)
     {
         //configura DbContext-----------------------------------------------------------
 
 
-        services.AddDbContext<AppDbContext>(options =>
-         options.UseSqlServer(connection, b =>
-               b.MigrationsAssembly("QuadrosNBR.Infraestrutura")));
+        //services.AddDbContext<AppDbContext>(options =>
+        // options.UseSqlServer(connection, b =>
+        //       b.MigrationsAssembly("QuadrosNBR.Infraestrutura")));
 
 
         //configura IdentityDbContext----------------------------------------------------
 
-        services.AddIdentityCore<ApplicationUser>(options =>
+        //services.AddDbContext<AppDbContextIdentity>(options =>
+        //options.UseSqlServer(connectionIdentity, b =>
+        //      b.MigrationsAssembly("QuadrosNBR.Identity")));
+
+
+        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
         options.SignIn.RequireConfirmedAccount = true)
-               .AddRoles<IdentityRole>()
-               .AddEntityFrameworkStores<AppDbContext>();
+               .AddEntityFrameworkStores<AppDbContextIdentity>();
 
 
         services.Configure<IdentityOptions>(options =>
@@ -77,8 +84,8 @@ public static class DependencesInjections
 
 
 
-
-
+        services.AddScoped<DbContext, AppDbContext>();
+        services.AddScoped<IdentityDbContext<ApplicationUser>, AppDbContextIdentity>();
 
         services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
         services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();

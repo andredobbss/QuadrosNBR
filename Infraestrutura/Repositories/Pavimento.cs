@@ -5,6 +5,9 @@ using QuadrosNBR.Infraestrutura.Repositories.Base;
 
 namespace QuadrosNBR.Infraestrutura.Repositories;
 
-public class Pavimento(AppDbContext appDbContext) : Repository<PavimentoDominio>(appDbContext), IPavimento
+public class Pavimento : Repository<PavimentoDominio>, IPavimento
 {
+    public Pavimento(AppDbContext appDbContext) : base(appDbContext)
+    {
+    }
 }

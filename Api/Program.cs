@@ -13,6 +13,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+
+//configura contairner--------------------------------------------------------------------------------
+
+
+string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
+string? connectioIdentity = builder.Configuration.GetConnectionString("DefaultConnectionIdentity");
+
+DependencesInjections.Dependens(builder.Services, connection, connectioIdentity);
+//----------------------------------------------------------------------------------------------------
+
+
 builder.Services.AddSwaggerGen(c =>
 {
 
@@ -65,14 +76,6 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
-
-//configura contairner--------------------------------------------------------------------------------
-
-
-string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
-DependencesInjections.Dependens(builder.Services, connection);
-//----------------------------------------------------------------------------------------------------
 
 builder.Services.AddAuthentication(
     JwtBearerDefaults.AuthenticationScheme).

@@ -1,11 +1,11 @@
-﻿namespace QuadrosNBR.Infraestrutura.DataBase.Identities;
+﻿namespace QuadrosNBR.Dominio.Identities;
 
 public class Project
 {
-    protected Project()
-    {
-        
-    }
+    //protected Project()
+    //{
+
+    //}
 
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; }

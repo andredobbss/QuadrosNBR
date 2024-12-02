@@ -1,24 +1,28 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using QuadrosNBR.Aplicacao.Extensions;
 using QuadrosNBR.Dominio.Entities;
 using QuadrosNBR.Infraestrutura.DataBase.Configurations;
-using QuadrosNBR.Infraestrutura.DataBase.Identities;
-using QuadrosNBR.Infraestrutura.Extensions;
 
 namespace QuadrosNBR.Infraestrutura.DataBase.Context;
 
-public class AppDbContext : IdentityDbContext<ApplicationUser>
+public class AppDbContext : DbContext
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
+
+    Guid tenantId;
     public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
     {
         _httpContextAccessor = httpContextAccessor;
+        tenantId = _httpContextAccessor.HttpContext.User.TenantId();
     }
 
-    public DbSet<Tenant>? Tenants { get; set; }
-    public DbSet<Project>? Projects { get; set; }
-    public DbSet<ApplicationUser>? ApplicationUsers { get; set; }
+    public AppDbContext() { }
+ 
+
+    public AppDbContext(DbContextOptions options) : base(options) { }
+
+
     public DbSet<InformacoesPreliminaresDominio>? InformacoesPreliminares { get; set; }
     public DbSet<MemoriaDominio>?  Memorias { get; set; }
     public DbSet<PavimentoDominio>? Pavimentos { get; set; }
@@ -26,25 +30,22 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
         modelBuilder.ApplyConfiguration(new InformacoesPreliminaresConfigurations());
-        modelBuilder.ApplyConfiguration(new TenantConfigurations());
         modelBuilder.ApplyConfiguration(new MemoriaConfigurations());
-        modelBuilder.ApplyConfiguration(new ApplicationUserConfigurations());
-        modelBuilder.ApplyConfiguration(new ProjectConfigurations());
-        modelBuilder.ApplyConfiguration(new PavimentoConfigurations());
+        modelBuilder.ApplyConfiguration(new PavimentoConfigurations());   
 
-
-
-        //Guid tenantId = Guid.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c => c.Type == "TenantId").ToString());
-
-        Guid tenantId = _httpContextAccessor.HttpContext.User.TenantId();
-
-        //// Adiciona filtros globais para Tenant nas entidades relevantes
-        modelBuilder.Entity<Project>().HasQueryFilter(x => x.TenantId == tenantId);
-        modelBuilder.Entity<ApplicationUser>().HasQueryFilter(x => x.TenantId == tenantId);
         modelBuilder.Entity<InformacoesPreliminaresDominio>().HasQueryFilter(x => x.TenantId == tenantId);
         modelBuilder.Entity<MemoriaDominio>().HasQueryFilter(x => x.TenantId == tenantId);
         modelBuilder.Entity<PavimentoDominio>().HasQueryFilter(x => x.TenantId == tenantId);
 
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+
+        optionsBuilder.UseSqlServer(@"Server=DESKTOP-SQ9UAB9\MSSQL_DEV;Database=QuadrosNbr;User ID=sa;Password=Dobbss149283; Trusted_Connection=False; TrustServerCertificate=True;");
     }
 }

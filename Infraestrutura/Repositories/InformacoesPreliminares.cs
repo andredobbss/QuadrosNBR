@@ -5,7 +5,9 @@ using QuadrosNBR.Infraestrutura.Repositories.Base;
 
 namespace QuadrosNBR.Infraestrutura.Repositories;
 
-public class InformacoesPreliminares(AppDbContext _appDbContext) : Repository<InformacoesPreliminaresDominio>(_appDbContext), IInformacoesPreliminares
+public class InformacoesPreliminares : Repository<InformacoesPreliminaresDominio>, IInformacoesPreliminares
 {
-
+    public InformacoesPreliminares(AppDbContext appDbContext) : base(appDbContext)
+    {
+    }
 }
